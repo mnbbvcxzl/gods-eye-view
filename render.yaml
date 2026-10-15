@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: gods-eye-view
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: GEV_ALLOWED_HOSTS="${RENDER_EXTERNAL_URL#https://}" npm run preview -- --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "24.14.0"
+      # 可选：以下密钥按需填写，不填则使用免费图层（航班/卫星/地震/监控/电台等均可正常用）
+      # - key: GOOGLE_MAPS_API_KEY
+      #   value: ""
+      # - key: CESIUM_ION_TOKEN
+      #   value: ""
+      # - key: OPENAI_API_KEY
+      #   value: ""
+      # - key: AISSTREAM_API_KEY
+      #   value: ""
